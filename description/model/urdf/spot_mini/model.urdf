@@ -1,0 +1,837 @@
+<?xml version="1.0"?>
+
+<robot name="spot">
+    <link name="base">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://description/model/urdf/spot_mini/meshes/body.dae" />
+            </geometry>
+            <material name="base">
+                <color rgba="1 0.8431 0 1" />
+            </material>
+        </visual>
+
+        <!-- <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.0335"/>
+            </geometry>
+            <material name="base_imu">
+                <color rgba="0.2 0.2 0.9 1"/>
+            </material>
+        </visual> -->
+        <!--        <visual>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <box size="0.787 0.18 0.172"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="base_col">-->
+        <!--                <color rgba="0 0.8431 1 1"/>-->
+        <!--            </material>-->
+        <!--        </visual>-->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.787 0.18 0.172" />
+            </geometry>
+            <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+            <!--            <geometry>-->
+            <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/base.obj"/>-->
+            <!--            </geometry>-->
+            <!--            <material name="base">-->
+            <!--                <color rgba="1 0.8431 0 1"/>-->
+            <!--            </material>-->
+        </collision>
+
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.008465 0.004045 -0.000763" />
+            <mass value="15.041" />
+            <inertia ixx="0.033260231" ixy="-0.000451628" ixz="0.000487603" iyy="0.16117211"
+                iyz="4.8356e-05" izz="0.17460442" />
+        </inertial>
+    </link>
+
+    <link name="fl.hip">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/front_left_hip.dae" />
+            </geometry>
+            <material name="fl.hip">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/fl.hip.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="fl.hip">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.022191 0.015144 -1.5e-05" />
+            <mass value="1.993" />
+            <inertia ixx="0.002903894" ixy="-7.185e-05" ixz="-1.262e-06" iyy="0.004907517"
+                iyz="-1.75e-06" izz="0.005586944" />
+        </inertial>
+    </link>
+    <joint name="fl.hx" type="revolute">
+        <origin xyz="0.29785 0.05500 0.00000" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="base" />
+        <child link="fl.hip" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.78539816339744827899"
+            upper="0.78539816339744827899" />
+    </joint>
+
+    <link name="fl.uleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/front_left_upper_leg.dae" />
+            </geometry>
+            <material name="fl.uleg">
+                <color rgba="1 0.8431 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+            <!--            <geometry>-->
+            <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/fl.uleg.obj"/>-->
+            <!--            </geometry>-->
+            <!--            <material name="fl.uleg">-->
+            <!--                <color rgba="1 0.8431 0 1"/>-->
+            <!--            </material>-->
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0374 0.043" />
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.005607 -0.003877 -0.118199" />
+            <mass value="0.639" />
+            <inertia ixx="0.005666803" ixy="3.597e-06" ixz="0.000491446" iyy="0.005847229"
+                iyz="1.0086e-05" izz="0.000369811" />
+        </inertial>
+    </link>
+    <joint name="fl.hy" type="revolute">
+        <origin xyz="0.0 0.11080 0.0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="fl.hip" />
+        <child link="fl.uleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.89884456477707963539"
+            upper="2.2951079663725435509" />
+    </joint>
+    <link name="fl.lleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/front_left_lower_leg.dae" />
+            </geometry>
+            <material name="fl.lleg">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <visual>-->
+        <!--            <origin rpy="0 0 0" xyz="0 0 -0.335"/>-->
+        <!--            <geometry>-->
+        <!--                <sphere radius="0.0335"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="fl.foot">&ndash;&gt;-->
+        <!--                <color rgba="0.2 0.2 0.9 1"/>-->
+        <!--            </material>-->
+        <!--        </visual>-->
+        <!--        <visual>-->
+        <!--            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125"/>-->
+        <!--            <geometry>-->
+        <!--                <box size="0.25 0.0208 0.016"/>-->
+        <!--            </geometry>-->
+        <!--        </visual>-->
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/fl.lleg.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="fl.lleg">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.335" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="fl.foot">
+                <color rgba="0.2 0.2 0.9 1" />
+            </material>
+        </collision>
+        <collision>
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0208 0.016" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.207" />
+            <inertia ixx="0.002855157" ixy="-3e-09" ixz="-8.7951e-05" iyy="0.002855157"
+                iyz="-1.336e-06" izz="3.9188e-05" />
+        </inertial>
+    </link>
+    <joint name="fl.kn" type="revolute">
+        <origin xyz="0.025 0.000 -0.3200" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="fl.uleg" />
+        <child link="fl.lleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.254402" />
+    </joint>
+    <link name="FL_foot">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="fl.foot">
+                <color rgba="0.2 0.2 0.9 0" />
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.0" />
+            <inertia ixx="0.0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+    <joint name="fl_foot_joint" type="fixed">
+        <origin xyz="0 0 -0.335" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="fl.lleg" />
+        <child link="FL_foot" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.254402" />
+    </joint>
+
+    <link name="fr.hip">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/front_right_hip.dae" />
+            </geometry>
+            <material name="fr.hip">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/fr.hip.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="fr.hip">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.022191 -0.015144 -1.5e-05" />
+            <mass value="1.993" />
+            <inertia ixx="0.002903894" ixy="7.185e-05" ixz="-1.262e-06" iyy="0.004907517"
+                iyz="1.75e-06" izz="0.005586944" />
+        </inertial>
+    </link>
+    <joint name="fr.hx" type="revolute">
+        <origin xyz="0.29785 -0.05500 0.00000" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="base" />
+        <child link="fr.hip" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.78539816339744827899"
+            upper="0.78539816339744827899" />
+    </joint>
+
+    <link name="fr.uleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/front_right_upper_leg.dae" />
+            </geometry>
+            <material name="fr.uleg">
+                <color rgba="1 0.8431 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+            <!--            <geometry>-->
+            <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/fr.uleg.obj"/>-->
+            <!--            </geometry>-->
+            <!--            <material name="fr.uleg">-->
+            <!--                <color rgba="1 0.8431 0 1"/>-->
+            <!--            </material>-->
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0374 0.043" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.005607 0.003877 -0.118199" />
+            <mass value="0.639" />
+            <inertia ixx="0.005666803" ixy="-3.597e-06" ixz="0.000491446" iyy="0.005847229"
+                iyz="-1.0086e-05" izz="0.000369811" />
+        </inertial>
+    </link>
+    <joint name="fr.hy" type="revolute">
+        <origin xyz="0.0 -0.11080 0.0" rpy="0 0 0" />
+        <axis xyz="0  1  0" />
+        <parent link="fr.hip" />
+        <child link="fr.uleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.898845" upper="2.24363" />
+    </joint>
+
+    <link name="fr.lleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/front_right_lower_leg.dae" />
+            </geometry>
+            <material name="fr.lleg">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/fr.lleg.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="fr.lleg">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.335" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="fl.foot">
+                <color rgba="0.2 0.2 0.9 1" />
+            </material>
+        </collision>
+        <collision>
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0208 0.016" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.207" />
+            <inertia ixx="0.002855157" ixy="-3e-09" ixz="-8.7951e-05" iyy="0.002855157"
+                iyz="-1.336e-06" izz="3.9188e-05" />
+        </inertial>
+    </link>
+    <joint name="fr.kn" type="revolute">
+        <origin xyz="0.025 0.000 -0.3200" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="fr.uleg" />
+        <child link="fr.lleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.255648" />
+    </joint>
+
+    <link name="FR_foot">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="fr.foot">
+                <color rgba="0.2 0.2 0.9 0" />
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.0" />
+            <inertia ixx="0.0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+    <joint name="fr_foot_joint" type="fixed">
+        <origin xyz="0 0 -0.335" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="fr.lleg" />
+        <child link="FR_foot" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.254402" />
+    </joint>
+
+    <link name="hl.hip">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://description/model/urdf/spot_mini/meshes/rear_left_hip.dae" />
+            </geometry>
+            <material name="hl.hip">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/hl.hip.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="hl.hip">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.022191 0.015144 -1.5e-05" />
+            <mass value="1.993" />
+            <inertia ixx="0.002903894" ixy="7.185e-05" ixz="1.262e-06" iyy="0.004907517"
+                iyz="-1.75e-06" izz="0.005586944" />
+        </inertial>
+    </link>
+    <joint name="hl.hx" type="revolute">
+        <origin xyz="-0.29785 0.05500 0.00000" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="base" />
+        <child link="hl.hip" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.78539816339744827899"
+            upper="0.78539816339744827899" />
+    </joint>
+
+    <link name="hl.uleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/rear_left_upper_leg.dae" />
+            </geometry>
+            <material name="hl.uleg">
+                <color rgba="1 0.8431 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+            <!--            <geometry>-->
+            <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/hl.uleg.obj"/>-->
+            <!--            </geometry>-->
+            <!--            <material name="hl.uleg">-->
+            <!--                <color rgba="1 0.8431 0 1"/>-->
+            <!--            </material>-->
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0374 0.043" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.005607 -0.003877 -0.118199" />
+            <mass value="0.639" />
+            <inertia ixx="0.005666803" ixy="3.597e-06" ixz="0.000491446" iyy="0.005847229"
+                iyz="1.0086e-05" izz="0.000369811" />
+        </inertial>
+    </link>
+    <joint name="hl.hy" type="revolute">
+        <origin xyz="0.0 0.11080 0.0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="hl.hip" />
+        <child link="hl.uleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.89884456477707963539"
+            upper="2.2951079663725435509" />
+    </joint>
+
+    <link name="hl.lleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/rear_left_lower_leg.dae" />
+            </geometry>
+            <material name="hl.lleg">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/hl.lleg.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="hl.lleg">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.335" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="fl.foot">
+                <color rgba="0.2 0.2 0.9 1" />
+            </material>
+        </collision>
+        <collision>
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0208 0.016" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.207" />
+            <inertia ixx="0.002855157" ixy="-3e-09" ixz="-8.7951e-05" iyy="0.002855157"
+                iyz="-1.336e-06" izz="3.9188e-05" />
+        </inertial>
+    </link>
+    <joint name="hl.kn" type="revolute">
+        <origin xyz="0.025 0.000 -0.3200" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="hl.uleg" />
+        <child link="hl.lleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.247067" />
+    </joint>
+
+    <link name="RL_foot">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="hl.foot">
+                <color rgba="0.2 0.2 0.9 0" />
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.0" />
+            <inertia ixx="0.0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+    <joint name="hl_foot_joint" type="fixed">
+        <origin xyz="0 0 -0.335" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="hl.lleg" />
+        <child link="RL_foot" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.254402" />
+    </joint>
+
+
+    <link name="hr.hip">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/rear_right_hip.dae" />
+            </geometry>
+            <material name="hr.hip">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/hr.hip.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="hr.hip">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.022191 -0.015144 -1.5e-05" />
+            <mass value="1.993" />
+            <inertia ixx="0.002903894" ixy="-7.185e-05" ixz="1.262e-06" iyy="0.004907517"
+                iyz="1.75e-06" izz="0.005586944" />
+        </inertial>
+    </link>
+    <joint name="hr.hx" type="revolute">
+        <origin xyz="-0.29785 -0.05500 0.00000" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <parent link="base" />
+        <child link="hr.hip" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.78539816339744827899"
+            upper="0.78539816339744827899" />
+    </joint>
+
+    <link name="hr.uleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/rear_right_upper_leg.dae" />
+            </geometry>
+            <material name="hr.uleg">
+                <color rgba="1 0.8431 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+            <!--            <geometry>-->
+            <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/hr.uleg.obj"/>-->
+            <!--            </geometry>-->
+            <!--            <material name="hr.uleg">-->
+            <!--                <color rgba="1 0.8431 0 1"/>-->
+            <!--            </material>-->
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0374 0.043" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.005607 0.003877 -0.118199" />
+            <mass value="0.639" />
+            <inertia ixx="0.005666803" ixy="-3.597e-06" ixz="0.000491446" iyy="0.005847229"
+                iyz="-1.0086e-05" izz="0.000369811" />
+        </inertial>
+    </link>
+    <joint name="hr.hy" type="revolute">
+        <origin xyz="0.0 -0.11080 0.0" rpy="0 0 0" />
+        <axis xyz="0  1  0" />
+        <parent link="hr.hip" />
+        <child link="hr.uleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-0.89884456477707963539"
+            upper="2.2951079663725435509" />
+    </joint>
+
+    <link name="hr.lleg">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh
+                    filename="package://description/model/urdf/spot_mini/meshes/rear_right_lower_leg.dae" />
+            </geometry>
+            <material name="hr.lleg">
+                <color rgba="0.2 0.2 0.2 1" />
+            </material>
+        </visual>
+        <!--        <collision>-->
+        <!--            <origin xyz="0 0 0" rpy="0 0 0"/>-->
+        <!--            <geometry>-->
+        <!--                <mesh filename="package://description/model/urdf/spot_mini/meshes/hr.lleg.obj"/>-->
+        <!--            </geometry>-->
+        <!--            <material name="hr.lleg">-->
+        <!--                <color rgba="0.2 0.2 0.2 1"/>-->
+        <!--            </material>-->
+        <!--        </collision>-->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.335" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="fl.foot">
+                <color rgba="0.2 0.2 0.9 1" />
+            </material>
+        </collision>
+        <collision>
+            <origin rpy="0 1.57079632679 0" xyz="0 0 -0.125" />
+            <geometry>
+                <box size="0.25 0.0208 0.016" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.207" />
+            <inertia ixx="0.002855157" ixy="-3e-09" ixz="-8.7951e-05" iyy="0.002855157"
+                iyz="-1.336e-06" izz="3.9188e-05" />
+        </inertial>
+    </link>
+    <joint name="hr.kn" type="revolute">
+        <origin xyz="0.025 0.000 -0.3200" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="hr.uleg" />
+        <child link="hr.lleg" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.248282" />
+    </joint>
+
+    <link name="RR_foot">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.0335" />
+            </geometry>
+            <material name="hr.foot">
+                <color rgba="0.2 0.2 0.9 0" />
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.002781 6.3e-05 -0.142518" />
+            <mass value="0.0" />
+            <inertia ixx="0.0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+    <joint name="hr_foot_joint" type="fixed">
+        <origin xyz="0 0 -0.335" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <parent link="hr.lleg" />
+        <child link="RR_foot" />
+        <dynamics damping="0.5" friction="0" />
+        <limit effort="50" velocity="10.00" lower="-2.7929" upper="-0.254402" />
+    </joint>
+
+    <transmission name="fl.hx">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="fl.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="fl.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="fl.hy">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="fl.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="fl.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="fl.kn">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="fl.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="fl.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="fr.hx">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="fr.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="fr.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="fr.hy">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="fr.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="fr.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="fr.kn">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="fr.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="fr.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="hl.hx">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="hl.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="hl.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="hl.hy">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="hl.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="hl.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="hl.kn">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="hl.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="hl.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="hr.hx">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="hr.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="hr.hx">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="hr.hy">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="hr.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="hr.hy">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="hr.kn">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="hr.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="hr.kn">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <!-- <gazebo>
+        <plugin name="gazebo_ros_control" filename="liblegged_hw_sim.so">
+            <robotNamespace>/</robotNamespace>
+            <robotParam>robot_description</robotParam>
+            <robotSimType>legged_gazebo/LeggedHWSim</robotSimType>
+        </plugin>
+    </gazebo> -->
+
+    <gazebo>
+        <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>1000.0</updateRate>
+            <bodyName>base</bodyName>
+            <topicName>ground_truth/state</topicName>
+            <gaussianNoise>0</gaussianNoise>
+            <frameName>world</frameName>
+            <xyzOffsets>0 0 0</xyzOffsets>
+            <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+    </gazebo>
+
+</robot>

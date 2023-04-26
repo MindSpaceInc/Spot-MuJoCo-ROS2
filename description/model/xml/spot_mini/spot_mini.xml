@@ -1,0 +1,283 @@
+<mujoco model="spot">
+  <compiler angle="radian" meshdir="meshes" autolimits="true" />
+  <size njmax="5000" nconmax="10000" />
+
+  <default>
+    <light castshadow="false" diffuse="1 1 1" />
+    <camera fovy="60" />
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="1" type="mesh" />
+    </default>
+    <default class="collision">
+      <geom contype="1" conaffinity="1" friction="1.0 0.3 0.3" rgba="0.5 0.6 0.7 0" margin="0.001"
+        group="0" />
+    </default>
+    <joint damping="0.01" armature="0.01" frictionloss="0.01" />
+    <!-- <joint damping="0.0" armature="0.0001" frictionloss="0.0" /> -->
+  </default>
+  <visual>
+    <rgba com="0.502 1.0 0 1.0" fog="0 0 0 1" contactpoint="0.9 0.9 0.9 0.8"
+      contactforce="0.9 0.9 0.9 0.5" />
+    <scale com="0.05" forcewidth="0.04" contactwidth="0.10" contactheight="0.005" selectpoint="0.01" />
+    <map force="0.015" />
+  </visual>
+
+  <asset>
+    <texture type="2d" name="spot_mat" file="spot_mat.png" />
+    <material name="spot_mat" texture="spot_mat" />
+    <mesh name="body" file="body.obj" />
+    <mesh name="fl.hip" file="hip.obj" />
+    <mesh name="fl.uleg" file="uleg.obj" />
+    <mesh name="fl.lleg" file="lleg.obj" />
+    <mesh name="fr.hip" scale="1 -1 1" file="hip.obj" />
+    <mesh name="fr.uleg" scale="1 -1 1" file="uleg.obj" />
+    <mesh name="fr.lleg" file="lleg.obj" />
+    <mesh name="hl.hip" file="hip.obj" />
+    <mesh name="hl.uleg" file="uleg.obj" />
+    <mesh name="hl.lleg" file="lleg.obj" />
+    <mesh name="hr.hip" scale="1 -1 1" file="hip.obj" />
+    <mesh name="hr.uleg" scale="1 -1 1" file="uleg.obj" />
+    <mesh name="hr.lleg" file="lleg.obj" />
+  </asset>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" width="512" height="512" rgb1=".4 .6 .8" rgb2="0 0 0" />
+    <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="128" height="128"
+      rgb1="0.6 0.6 0.6" rgb2="0.6 0.6 0.6" markrgb="1 1 1" />
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".4 .4 .4" rgb2=".6 .6 .6"
+      width="512" height="512" />
+    <material name='MatPlane' reflectance='0.3' texture="texplane" texrepeat="1 1" texuniform="true"
+      rgba=".7 .7 .7 1" />
+  </asset>
+  <option timestep="0.0005" />
+
+
+  <worldbody>
+    <light directional="true" diffuse=".8 .8 .8" pos="0 0 10" dir="0 0 -10" />
+    <geom name="floor" pos="0 0 -0.05" type="plane" size="0 0 1" material="MatPlane" />
+    <camera name="track" mode="targetbody" target="base" pos="2.5 -2.3 1.2"
+      xyaxes="1 0 0 0 0.707 0.707" />
+
+    <body name="base" pos="0 0 0.7" gravcomp="0">
+      <inertial pos="0.008465 0.004045 -0.000763" quat="-2.12791e-05 0.708321 0.00248043 0.705886"
+        mass="15.041" diaginertia="0.174606 0.161174 0.033257" />
+      <joint name="floating_base" type="free" />
+      <!-- <joint name="floating_base" type="free" damping="10000000"/> -->
+      <geom class="visual" euler="1.571 1.571 0" material="spot_mat" mesh="body" />
+      <geom class="collision" size="0.0335" />
+      <geom class="collision" size="0.3935 0.09 0.086" type="box" />
+      <site name="imu" pos="0 0 0" />
+
+      <body name="fl.hip" pos="0.29785 0.055 0" gravcomp="0">
+        <inertial pos="-0.022191 0.015144 -1.5e-05" quat="-0.0135493 0.706835 0.0117635 0.707151"
+          mass="1.993" diaginertia="0.00558695 0.00491009 0.00290132" />
+        <joint name="fl.hx" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398" />
+        <geom class="visual" material="spot_mat" mesh="fl.hip" />
+        <body name="fl.uleg" pos="0 0.1108 0" gravcomp="0">
+          <inertial pos="-0.005607 -0.003877 -0.118199"
+            quat="0.717987 -0.031246 -0.0335669 0.694544" mass="0.639"
+            diaginertia="0.0058474 0.00571186 0.000324584" />
+          <joint name="fl.hy" pos="0 0 0" axis="0 1 0" range="-0.898845 2.29511" />
+          <geom class="visual" material="spot_mat" mesh="fl.uleg" />
+          <geom class="collision" size="0.125 0.0187 0.0215" pos="0 0 -0.125"
+            quat="0.707107 0 0.707107 0" type="box" />
+          <body name="fl.lleg" pos="0.025 0 -0.32" gravcomp="0">
+            <inertial pos="0.002781 6.3e-05 -0.142518"
+              quat="0.999854 -0.000126986 0.0155969 0.00704766" mass="0.207"
+              diaginertia="0.0028579 0.00285516 3.64431e-05" />
+            <joint name="fl.kn" pos="0 0 0" axis="0 1 0" range="-2.7929 -0.254402" />
+            <geom class="visual" material="spot_mat" mesh="fl.lleg" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <geom class="collision" size="0.125 0.0104 0.008" pos="0 0 -0.125"
+              quat="0.707107 0 0.707107 0" type="box" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <site name="fl_tc" size="0.0335" pos="0 0 -0.335" rgba="0 1 0 0.0" />
+          </body>
+        </body>
+      </body>
+      <body name="fr.hip" pos="0.29785 -0.055 0" gravcomp="0">
+        <inertial pos="-0.022191 -0.015144 -1.5e-05" quat="0.0135493 0.706835 -0.0117635 0.707151"
+          mass="1.993" diaginertia="0.00558695 0.00491009 0.00290132" />
+        <joint name="fr.hx" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398" />
+        <geom class="visual" material="spot_mat" mesh="fr.hip" />
+        <body name="fr.uleg" pos="0 -0.1108 0" gravcomp="0">
+          <inertial pos="-0.005607 0.003877 -0.118199" quat="0.694544 -0.0335669 -0.031246 0.717987"
+            mass="0.639" diaginertia="0.0058474 0.00571186 0.000324584" />
+          <joint name="fr.hy" pos="0 0 0" axis="0 1 0" range="-0.898845 2.24363" />
+          <geom class="visual" material="spot_mat" mesh="fr.uleg" />
+          <geom class="collision" size="0.125 0.0187 0.0215" pos="0 0 -0.125"
+            quat="0.707107 0 0.707107 0" type="box" />
+          <body name="fr.lleg" pos="0.025 0 -0.32" gravcomp="0">
+            <inertial pos="0.002781 6.3e-05 -0.142518"
+              quat="0.999854 -0.000126986 0.0155969 0.00704766" mass="0.207"
+              diaginertia="0.0028579 0.00285516 3.64431e-05" />
+            <joint name="fr.kn" pos="0 0 0" axis="0 1 0" range="-2.7929 -0.255648" />
+            <geom class="visual" material="spot_mat" mesh="fr.lleg" pos="0 -0.004 0" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <geom class="collision" size="0.125 0.0104 0.008" pos="0 0 -0.125"
+              quat="0.707107 0 0.707107 0" type="box" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <site name="fr_tc" size="0.0335" pos="0 0 -0.335" rgba="0 1 0 0.0" />
+          </body>
+        </body>
+      </body>
+      <body name="hl.hip" pos="-0.29785 0.055 0" gravcomp="0">
+        <inertial pos="0.022191 0.015144 -1.5e-05" quat="0.0117635 0.707151 -0.0135493 0.706835"
+          mass="1.993" diaginertia="0.00558695 0.00491009 0.00290132" />
+        <joint name="hl.hx" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398" />
+        <geom class="visual" material="spot_mat" mesh="hl.hip" />
+        <body name="hl.uleg" pos="0 0.1108 0" gravcomp="0">
+          <inertial pos="-0.005607 -0.003877 -0.118199"
+            quat="0.717987 -0.031246 -0.0335669 0.694544" mass="0.639"
+            diaginertia="0.0058474 0.00571186 0.000324584" />
+          <joint name="hl.hy" pos="0 0 0" axis="0 1 0" range="-0.898845 2.29511" />
+          <geom class="visual" material="spot_mat" mesh="hl.uleg" />
+          <geom class="collision" size="0.125 0.0187 0.0215" pos="0 0 -0.125"
+            quat="0.707107 0 0.707107 0" type="box" />
+          <body name="hl.lleg" pos="0.025 0 -0.32" gravcomp="0">
+            <inertial pos="0.002781 6.3e-05 -0.142518"
+              quat="0.999854 -0.000126986 0.0155969 0.00704766" mass="0.207"
+              diaginertia="0.0028579 0.00285516 3.64431e-05" />
+            <joint name="hl.kn" pos="0 0 0" axis="0 1 0" range="-2.7929 -0.247067" />
+            <geom class="visual" material="spot_mat" mesh="hl.lleg" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <geom class="collision" size="0.125 0.0104 0.008" pos="0 0 -0.125"
+              quat="0.707107 0 0.707107 0" type="box" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <site name="hl_tc" size="0.0335" pos="0 0 -0.335" rgba="0 1 0 0.0" />
+          </body>
+        </body>
+      </body>
+      <body name="hr.hip" pos="-0.29785 -0.055 0" gravcomp="0">
+        <inertial pos="0.022191 -0.015144 -1.5e-05" quat="-0.0117635 0.707151 0.0135493 0.706835"
+          mass="1.993" diaginertia="0.00558695 0.00491009 0.00290132" />
+        <joint name="hr.hx" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398" />
+        <geom class="visual" material="spot_mat" mesh="hr.hip" />
+        <body name="hr.uleg" pos="0 -0.1108 0" gravcomp="0">
+          <inertial pos="-0.005607 0.003877 -0.118199" quat="0.694544 -0.0335669 -0.031246 0.717987"
+            mass="0.639" diaginertia="0.0058474 0.00571186 0.000324584" />
+          <joint name="hr.hy" pos="0 0 0" axis="0 1 0" range="-0.898845 2.29511" />
+          <geom class="visual" material="spot_mat" mesh="hr.uleg" />
+          <geom class="collision" size="0.125 0.0187 0.0215" pos="0 0 -0.125"
+            quat="0.707107 0 0.707107 0" type="box" />
+          <body name="hr.lleg" pos="0.025 0 -0.32" gravcomp="0">
+            <inertial pos="0.002781 6.3e-05 -0.142518"
+              quat="0.999854 -0.000126986 0.0155969 0.00704766" mass="0.207"
+              diaginertia="0.0028579 0.00285516 3.64431e-05" />
+            <joint name="hr.kn" pos="0 0 0" axis="0 1 0" range="-2.7929 -0.248282" />
+            <geom class="visual" material="spot_mat" mesh="hr.lleg" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <geom class="collision" size="0.125 0.0104 0.008" pos="0 0 -0.125"
+              quat="0.707107 0 0.707107 0" type="box" />
+            <geom class="collision" size="0.0335" pos="0 0 -0.335" />
+            <site name="hr_tc" size="0.0335" pos="0 0 -0.335" rgba="0 1 0 0.0" />
+          </body>
+        </body>
+      </body>
+    </body>
+
+    <body name="throw_box1" pos="0.0 -1.0 0.12" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="2.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.05 0.05 0.05" type="box" rgba="0.1 0.5 0.5 1" />
+      <joint name="throw_box1" type="free" />
+    </body>
+
+    <body name="throw_box2" pos="0.0 -1.0 0.12" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="1.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.05 0.03 0.04" type="box" rgba="0.5 0.1 0.5 1" />
+      <joint name="throw_box2" type="free" />
+    </body>
+
+    <body name="throw_box3" pos="0.0 -1.0 0.12" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="1.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.04 0.05 0.03" type="box" rgba="0.5 0.5 0.1 1" />
+      <joint name="throw_box3" type="free" />
+    </body>
+
+    <body name="throw_box4" pos="0.0 -1.0 0.12" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="1.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.04 0.04 0.04" type="box" rgba="0.9 0.5 0.9 1" />
+      <joint name="throw_box4" type="free" />
+    </body>
+
+    <!-- <body name="box" pos="0.06 0 0.9" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="0.207" diaginertia="0.00078579 0.000785516
+    3.64431e-05"/>
+      <geom class="collision" size="0.01 0.01 0.1235" type="box" rgba="0.5 0.6 0.7 1"/>
+      <joint name="box" type="free"/>
+    </body> -->
+    <!-- <body name="box1" pos="1.06 0 0" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="1.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.5 1.03 0.03" type="box" rgba="0.5 0.5 0.5 1" />
+    </body>
+    <body name="box2" pos="2.0 0 0.06" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="1.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.5 1.03 0.03" type="box" rgba="0.7 0.7 0.7 1" />
+    </body>
+
+    <body name="box3" pos="3.0 0 0.12" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="1.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.5 1.03 0.03" type="box" rgba="0.5 0.5 0.5 1" />
+    </body>
+
+    <body name="box4" pos="4.0 0 0.06" euler="0 0.15 0" gravcomp="0">
+      <inertial pos="0 0 0" quat="1 0 0 0" mass="1.607" diaginertia="0.0012 0.0012 0.0012" />
+      <geom class="collision" size="0.5 1.03 0.03" type="box" rgba="0.7 0.7 0.7 1" />
+    </body> -->
+
+
+  </worldbody>
+
+  <actuator>
+    <motor name="fl.hx" gear="1" joint="fl.hx" />
+    <motor name="fl.hy" gear="1" joint="fl.hy" />
+    <motor name="fl.kn" gear="1" joint="fl.kn" />
+    <motor name="fr.hx" gear="1" joint="fr.hx" />
+    <motor name="fr.hy" gear="1" joint="fr.hy" />
+    <motor name="fr.kn" gear="1" joint="fr.kn" />
+    <motor name="hl.hx" gear="1" joint="hl.hx" />
+    <motor name="hl.hy" gear="1" joint="hl.hy" />
+    <motor name="hl.kn" gear="1" joint="hl.kn" />
+    <motor name="hr.hx" gear="1" joint="hr.hx" />
+    <motor name="hr.hy" gear="1" joint="hr.hy" />
+    <motor name="hr.kn" gear="1" joint="hr.kn" />
+  </actuator>
+
+  <sensor>
+    <framequat name="Body_Quat" objtype="site" objname="imu" />
+    <gyro name="Body_Gyro" site="imu" />
+    <accelerometer name="Body_Acc" site="imu" />
+
+    <jointpos name="fl.hx_pos" joint="fl.hx" />
+    <jointpos name="fl.hy_pos" joint="fl.hy" />
+    <jointpos name="fl.kn_pos" joint="fl.kn" />
+    <jointpos name="fr.hx_pos" joint="fr.hx" />
+    <jointpos name="fr.hy_pos" joint="fr.hy" />
+    <jointpos name="fr.kn_pos" joint="fr.kn" />
+    <jointpos name="hl.hx_pos" joint="hl.hx" />
+    <jointpos name="hl.hy_pos" joint="hl.hy" />
+    <jointpos name="hl.kn_pos" joint="hl.kn" />
+    <jointpos name="hr.hx_pos" joint="hr.hx" />
+    <jointpos name="hr.hy_pos" joint="hr.hy" />
+    <jointpos name="hr.kn_pos" joint="hr.kn" />
+
+    <jointvel name="fl.hx_vel" joint="fl.hx" />
+    <jointvel name="fl.hy_vel" joint="fl.hy" />
+    <jointvel name="fl.kn_vel" joint="fl.kn" />
+    <jointvel name="fr.hx_vel" joint="fr.hx" />
+    <jointvel name="fr.hy_vel" joint="fr.hy" />
+    <jointvel name="fr.kn_vel" joint="fr.kn" />
+    <jointvel name="hl.hx_vel" joint="hl.hx" />
+    <jointvel name="hl.hy_vel" joint="hl.hy" />
+    <jointvel name="hl.kn_vel" joint="hl.kn" />
+    <jointvel name="hr.hx_vel" joint="hr.hx" />
+    <jointvel name="hr.hy_vel" joint="hr.hy" />
+    <jointvel name="hr.kn_vel" joint="hr.kn" />
+
+    <touch name="fl_touch" site="fl_tc" />
+    <touch name="fr_touch" site="fr_tc" />
+    <touch name="hl_touch" site="hl_tc" />
+    <touch name="hr_touch" site="hr_tc" />
+  </sensor>
+
+</mujoco>

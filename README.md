@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This package is developed with [ROS2](https://docs.ros.org/en/humble/index.html) based on [spot_sdk](https://github.com/boston-dynamics/spot-sdk).
+This package is developed with [ROS2](https://docs.ros.org/en/humble/index.html) based on [spot-sdk](https://github.com/boston-dynamics/spot-sdk). The original [urdf](https://github.com/boston-dynamics/spot-sdk/tree/master/files) has no inertia and mass information, so we generate this information based on its geometric shape.
 
 The files include:
 

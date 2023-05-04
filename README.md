@@ -27,8 +27,8 @@ cd ~/your_workspace/src & git clone https://github.com/DeepBreakOfficial/Spot-Mu
 ```
 
 ```
-# Build
-colcon build
+# Build (DO NOT remove `--symlink-install`)
+colcon build --symlink-install 
 ```
 
 ```

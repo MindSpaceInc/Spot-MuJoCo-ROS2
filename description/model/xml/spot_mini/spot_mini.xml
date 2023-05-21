@@ -54,7 +54,7 @@
 
   <worldbody>
     <light directional="true" diffuse=".8 .8 .8" pos="0 0 10" dir="0 0 -10" />
-    <geom name="floor" pos="0 0 -0.05" type="plane" size="0 0 1" material="MatPlane" />
+    <geom name="floor" pos="0 0 -0.03" type="plane" size="0 0 1" material="MatPlane" />
     <camera name="track" mode="targetbody" target="base" pos="2.5 -2.3 1.2"
       xyaxes="1 0 0 0 0.707 0.707" />
 
